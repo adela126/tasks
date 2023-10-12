@@ -6,9 +6,5 @@ using namespace std;
 
 int main()
 {
-    complex c;
-    cin >> c;
-    cout << c;
-
     test_cm();
 }

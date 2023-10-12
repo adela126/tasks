@@ -20,13 +20,14 @@
 */
 
 #define EXCEPT_EQ(x,y) TEST((x) == (y));
+#define EXCEPT_DOUBLE_EQ(x,y) TEST((x*1000)/1000 == (y));
 #define EXCEPT_NQ(x,y) TEST((x) != (y));
 #define EXCEPT_NAN(x)  TEST((x) != (x));
 #define EXCEPT_INF(x)  TEST((x) == 1.0/0.0 || (x) == -1.0/0.0);
 #define EXCEPT_PINF(x) TEST((x) == 1.0/0.0);
 #define EXCEPT_NINF(x) TEST((x) == -1.0/0.0);
 #define EXCEPT_APPR(x,y,eps) \
-     TEST(std::abs(((x)-(y))/std::max((x),(y))) < eps);
+     TEST(abs_com(((x)-(y))/std::max((x),(y))) < eps);
 
 void test_cm();
 #endif // TEST_H_INCLUDED
