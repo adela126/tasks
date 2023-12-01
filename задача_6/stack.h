@@ -22,19 +22,26 @@ public:
     typedef typename linked_list<T>::iterator iterator;
     typedef typename linked_list<T>::const_iterator const_iterator;
     iterator begin(){
-        return iterator(Head);
+        return iterator(top);
     }
     iterator end(){
         return iterator();
     }
     const_iterator begin() const {
-        return const_iterator(Head);
+        return const_iterator(top);
     }
     const_iterator end() const{
         return const_iterator();
     }
 
-    stack_(const std::initializer_list<T> l) : Head(NULL), Tail(NULL){
+    const_iterator cbegin() const {
+        return const_iterator(top);
+    }
+    const_iterator cend() const{
+        return const_iterator();
+    }
+
+    stack_(const std::initializer_list<T> l) : top(NULL){
         for (typename std::initializer_list<T>::iterator i = l.begin(); i != l.end(); ++i)
             push(*i);
     }

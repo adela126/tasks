@@ -26,10 +26,33 @@ public:
             return h->x;
         }
 
-        iterator operator ++ (){
+        iterator& operator ++ (){
             h = h->Next;
             return *this;
         }
+
+        iterator operator ++ (int){
+            iterator e;
+            e = *this;
+            h = h -> Next;
+            return e;
+        }
+
+        bool operator == (const iterator& r) const{
+            return h == r.h;
+        }
+/*
+        bool operator == (const const_iterator& r) const{
+            return h == r.h;
+        }*/
+
+        pointer operator -> () {
+            return &(h->x);
+        }
+
+       /* bool operator != (const const_iterator& r) const{
+            return h != r.h;
+        }*/
 
         bool operator != (const iterator& r) const{
             return h != r.h;
@@ -53,14 +76,25 @@ public:
             return h->x;
         }
 
-        const_iterator operator ++ (){
+        const const_iterator& operator ++ (){
             h = h->Next;
             return *this;
         }
 
-        const_iterator operator = (const iterator& r){
+        const_iterator operator ++ (int){
+            const_iterator e;
+            e = *this;
+            h = h -> Next;
+            return e;
+        }
+
+        const const_iterator& operator = (const iterator& r){
             h = r.h;
             return *this;
+        }
+
+        pointer operator -> () const {
+            return &(h->x);
         }
 
         bool operator == (const iterator& r) const{
@@ -79,7 +113,13 @@ public:
             return h != r.h;
         }
 
-        template <class U> friend std::ostream& operator << (std::ostream& out, const linked_list<U>& l){
+    private:
+
+        Node* h;
+
+    };
+
+    template <class U> friend std::ostream& operator << (std::ostream& out, const linked_list<U>& l){
             for (const auto &i: l)
                 out << i << " ";
             return out;
@@ -90,12 +130,8 @@ public:
     virtual const_iterator begin () const = 0;
     virtual const_iterator end() const = 0;
 
-
-    private:
-
-        Node* h;
-
-    };
+    virtual const_iterator cbegin () const = 0;
+    virtual const_iterator cend() const = 0;
 
 protected:
     struct Node{

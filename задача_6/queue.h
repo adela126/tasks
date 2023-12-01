@@ -30,6 +30,13 @@ public:
         return const_iterator();
     }
 
+    const_iterator cbegin() const {
+        return const_iterator(Head);
+    }
+    const_iterator cend() const{
+        return const_iterator();
+    }
+
     queue_(const std::initializer_list<T> l) : Head(NULL), Tail(NULL){
         for (typename std::initializer_list<T>::iterator i = l.begin(); i != l.end(); ++i)
             push(*i);
