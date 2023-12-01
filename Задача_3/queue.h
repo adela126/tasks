@@ -33,7 +33,7 @@ public:
     friend std::ostream& operator << (std::ostream& out, const queue_&);
     friend std::istream& operator >> (std::istream& in, queue_&);
 
-    const bool isEmpty() const;
+    bool isEmpty() const;
     int& GetFront();
     const int& GetFront() const;
 

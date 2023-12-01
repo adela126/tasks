@@ -14,6 +14,7 @@ stack_& stack_::operator = (const stack_& orig){ //просваивание
         (*temp)->x = n->x;
         temp = &((*temp)->link);
     }
+    *temp = NULL;
     return *this;
 }
 
@@ -51,7 +52,7 @@ stack_& stack_::pop(){
     return *this;
 }
 
-const bool stack_::isEmpty() const{
+bool stack_::isEmpty() const{
     return top == NULL;
 }
 

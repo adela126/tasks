@@ -56,7 +56,7 @@ queue_& queue_::pop(){
 
 }
 
-const bool queue_::isEmpty() const{
+bool queue_::isEmpty() const{
     return Head == NULL;
 }
 

@@ -17,7 +17,6 @@ public:
             *temp = new Node;
             (*temp)->x = n->x;
             temp = &((*temp)->link);
-
         }
         *temp = NULL;
     }
@@ -35,7 +34,7 @@ public:
     stack_& clean();
     size_t size_() const;
 
-    const bool isEmpty() const;
+    bool isEmpty() const;
     int& GetFront();
     const int& GetFront() const;
 
