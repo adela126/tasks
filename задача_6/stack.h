@@ -11,10 +11,10 @@ public:
 
     stack_(const stack_& orig) : top(NULL){
         Node **temp = &top;
-        for (Node *n = orig.top; n; n = n->link){
+        for (Node *n = orig.top; n; n = n->Next){
             *temp = new Node;
             (*temp)->x = n->x;
-            temp = &((*temp)->link);
+            temp = &((*temp)->Next);
         }
         *temp = NULL;
     }
@@ -73,10 +73,10 @@ stack_<T>& stack_<T>::operator = (const stack_& orig){ //просваивание
     if(this == &orig) return *this;
     this->clean();
     Node **temp = &top;
-    for (Node *n = orig.top; n; n = n->link){
+    for (Node *n = orig.top; n; n = n->Next){
         *temp = new Node;
         (*temp)->x = n->x;
-        temp = &((*temp)->link);
+        temp = &((*temp)->Next);
     }
     *temp = NULL;
     return *this;
@@ -94,7 +94,7 @@ stack_<T>& stack_<T>::operator = (stack_&& orig){
 template <class T>
 stack_<T>::~stack_<T>(){
     while (top != NULL){
-        Node *temp = top->link;
+        Node *temp = top->Next;
         delete top;
         top = temp;
     }
@@ -104,7 +104,7 @@ template <class T>
 stack_<T>& stack_<T>::push(T x){
     Node *temp = new Node;
     temp->x = x;
-    temp->link = top;
+    temp->Next = top;
     top = temp;
     return *this;
 }
@@ -115,7 +115,7 @@ stack_<T>& stack_<T>::pop(){
     if (top == NULL){
         throw std::runtime_error("Removing an element from an empty stack");
     }
-    top = top->link;
+    top = top->Next;
     delete temp;
     return *this;
 }
@@ -143,7 +143,7 @@ size_t stack_<T>::size_() const {
     size_t k = 0;
     while(st != NULL){
         k++;
-        st = st -> link;
+        st = st ->Next;
     }
     return k;
 }
@@ -153,7 +153,7 @@ stack_<T>& stack_<T>::clean(){
     if (!top) return *this;
 
     Node *n = top, *n_next;
-    while ((n_next = n->link)){
+    while ((n_next = n->  Next)){
         delete n;
         n = n_next;
     }
