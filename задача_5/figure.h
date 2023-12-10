@@ -33,7 +33,7 @@ public:
     }
 
     size_t kol(){
-        return v.size();
+        return len;
     }
 
     int getparameter(size_t i){

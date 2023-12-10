@@ -1,7 +1,38 @@
 #include <iostream>
 #include <graphics.h>
 #include "figure.h"
+
 using namespace std;
+
+void edit(fgr* t){
+    bool w1 = true;
+    while(w1){
+        cout << "1 Позиция точки " << t->Getpoint().x << " " << t->Getpoint().y << endl;
+        for (size_t i = 0; i < t->kol(); ++i){
+            cout << i+2 << " " << t->getname(i) << " : " << t->getparameter(i) << endl;
+        }
+        cout << "0 - Никакой" << endl;
+        cout << "Какой параметр хотите изменить?" << endl;
+        int n;
+        cin >> n;
+        if (n == 0) {w1 = false; break; }
+        else if (n == 1){
+            cout << "Введите координаты x и y: ";
+            point pos;
+            cin >> pos.x >> pos.y;
+            t->setpoint(pos);
+            t->show();
+        }
+        else{
+            cout << "Введите " << t->getname(n-2) << endl;
+            int V;
+            cin >> V;
+            t->setparameter(n-2, V);
+            t->show();
+        }
+    }
+
+}
 
 int main()
 {
@@ -26,11 +57,7 @@ int main()
         case 1:
             {
             circle_ *c = new circle_;
-            cout << "Введите координаты x и y: ";
-            point pos;
-            cin >> pos.x >> pos.y;
-            c->setpoint(pos);
-            c->show();
+            edit(c);
             v.push_back(c);
             }
             break;
@@ -38,22 +65,14 @@ int main()
         case 2:
             {
             ellipse_ *e = new ellipse_;
-            cout << "Введите координаты x и y: ";
-            point pos;
-            cin >> pos.x >> pos.y;
-            e->setpoint(pos);
-            e->show();
+            edit(e);
             v.push_back(e);
             }
             break;
         case 3:
             {
             square_ *s = new square_;
-            cout << "Введите координаты x и y: ";
-            point pos;
-            cin >> pos.x >> pos.y;
-            s->setpoint(pos);
-            s->show();
+            edit(s);
             v.push_back(s);
             }
             break;
@@ -61,11 +80,7 @@ int main()
         case 4:
             {
             rectangle_ *r = new rectangle_();
-            cout << "Введите координаты x и y: ";
-            point pos;
-            cin >> pos.x >> pos.y;
-            r->setpoint(pos);
-            r->show();
+            edit(r);
             v.push_back(r);
             }
             break;
@@ -82,9 +97,6 @@ int main()
 
     for (auto &i: v)
         delete i;
-
-
-
 
     readkey();
     closegraph();
