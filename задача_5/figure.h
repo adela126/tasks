@@ -32,11 +32,11 @@ public:
         }
     }
 
-    size_t kol(const vector& v){
+    size_t kol(){
         return v.size();
     }
 
-    int getparameter(size_t i, const vector& v){
+    int getparameter(size_t i){
         if (i >= len){
             throw std::runtime_error("Выход за границу вектор\n");
         }
@@ -44,7 +44,7 @@ public:
     }
 
     void setparameter(size_t i, int value){
-        if (i >= param_len) throw std::runtime_error("Изменение несуществующего параметра");
+        if (i >= len) throw std::runtime_error("Изменение несуществующего параметра");
         if (status)
         {
             paint(FON);
@@ -54,7 +54,7 @@ public:
         else v[i] = value;
     }
 
-    string getname(size_t i, const vector& s){
+    std::string getname(size_t i){
         if (i >= len){
             throw std::runtime_error("Выход за границу вектор\n");
         }
@@ -97,7 +97,7 @@ public:
 private:
     void paint (int c)override {
         setcolor(c);
-        rectangle(p.x - a/2, p.y + a/2, p.x + a/2, p.y - a/2);
+        rectangle(p.x - v[0]/2, p.y + v[0]/2, p.x + v[0]/2, p.y - v[0]/2);
     }
 };
 
@@ -105,7 +105,7 @@ class ellipse_: public fgr{
 public:
     ellipse_ (point p_ = {300, 100}, int a = 60, int b = 30, bool st = false): fgr(2, st)
     {
-        setpoint(int p_);
+        setpoint(p_);
         v.push_back(a);
         v.push_back(b);
         s.push_back("large semi-axis");
@@ -114,7 +114,7 @@ public:
 private:
     void paint (int c)override {
         setcolor(c);
-        ellipse(p.x, p.y, 0, 360, a, b);
+        ellipse(p.x, p.y, 0, 360, v[0], v[1]);
     }
 };
 
@@ -122,7 +122,7 @@ class rectangle_: public fgr{
 public:
     rectangle_ (point p_ = {200, 300}, int a = 60, int b = 30, bool st = false): fgr(2, st)
     {
-        setpoint(int p_);
+        setpoint(p_);
         v.push_back(a);
         v.push_back(b);
         s.push_back("width");
@@ -131,7 +131,7 @@ public:
 private:
     void paint (int c)override {
         setcolor(c);
-        rectangle(p.x - a/2, p.y + b/2, p.x + a/2, p.y - b/2);
+        rectangle(p.x - v[0]/2, p.y + v[1]/2, p.x + v[0]/2, p.y - v[1]/2);
     }
 };
 
