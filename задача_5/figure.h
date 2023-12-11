@@ -13,7 +13,7 @@ typedef struct{
 
 class fgr{
 public:
-    fgr(size_t n, bool st = false): len(n), status(st) {}
+    fgr(size_t n, std::string strn, bool st = false):str(strn), len(n), status(st) {}
     virtual ~fgr(){}
 
     void show () {paint(color); status = true; }
@@ -60,11 +60,25 @@ public:
         }
         return s[i];
     }
+    friend std::ostream &operator<<(std::ostream &os, const fgr &f)
+    {
+        os << f.str << " ";
+        os << "Позиция: " << f.p.x << " " << f.p.y << " ";
+        for (size_t i = 0; i < f.len; ++i){
+            os << f.s[i] << " " << f.v[i] << " ";
+        }
+        if (f.status == 1){
+            os << "фигура отображена " << std::endl;
+        }
+        else os << "фигура скрыта " << std::endl;
+        return os;
+    }
 
 protected:
     point p;
     std::vector<int> v;
     std::vector<std::string> s;
+    std::string str;
     size_t len;
     bool status;
     const int color = rgb(190, 19, 225);
@@ -73,7 +87,7 @@ protected:
 
 class circle_: public fgr{
 public:
-    circle_ (point p_ = {300, 300}, int r = 30, bool st = false): fgr(1, st)
+    circle_ (point p_ = {300, 300}, int r = 30, bool st = false): fgr(1, "Круг", st)
     {
         setpoint(p_);
         v.push_back(r);
@@ -88,7 +102,7 @@ private:
 
 class square_: public fgr{
 public:
-    square_ (point p_ = {300, 200}, int a = 30, bool st = false): fgr(1, st)
+    square_ (point p_ = {300, 200}, int a = 30, bool st = false): fgr(1, "Квадрат", st)
     {
         setpoint(p_);
         v.push_back(a);
@@ -103,7 +117,7 @@ private:
 
 class ellipse_: public fgr{
 public:
-    ellipse_ (point p_ = {300, 100}, int a = 60, int b = 30, bool st = false): fgr(2, st)
+    ellipse_ (point p_ = {300, 100}, int a = 60, int b = 30, bool st = false): fgr(2, "Эллипс", st)
     {
         setpoint(p_);
         v.push_back(a);
@@ -120,7 +134,7 @@ private:
 
 class rectangle_: public fgr{
 public:
-    rectangle_ (point p_ = {200, 300}, int a = 60, int b = 30, bool st = false): fgr(2, st)
+    rectangle_ (point p_ = {200, 300}, int a = 60, int b = 30, bool st = false): fgr(2, "Прямоугольник", st)
     {
         setpoint(p_);
         v.push_back(a);
